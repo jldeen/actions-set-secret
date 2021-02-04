@@ -11,9 +11,10 @@ module.exports = class Api {
    * @param {any} auth - Auth method
    * @param {string} repo - Repository in format username/repo-name
    * @param {boolean} org - Is a Organization
+   * @param {boolean} owner - Is the repo owner
    * @returns {Promise<{data: object}>} - Fetch response
    */
-  constructor(auth, repo, org = false) {
+  constructor(auth, repo, org, owner = false) {
     this.octokit = new Octokit({ auth })
     this._repo = repo
     this._org = org
@@ -67,7 +68,7 @@ module.exports = class Api {
    */
   async setSecret(data, name) {
     return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
-      base: this._base,
+      owner: this._owner,
       repo: this._repo,
       name,
       data
