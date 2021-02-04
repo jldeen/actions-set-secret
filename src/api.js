@@ -1,3 +1,4 @@
+const core = require('@actions/core')
 const { Octokit } = require('@octokit/core')
 const sodium = require('tweetsodium')
 
@@ -29,9 +30,9 @@ module.exports = class Api {
    */
 
   async getPublicKey() {
-    let { data } = await this.octokit.request('GET /repos/{base}/{repo}/actions/secrets/public-key', {
-      base: this._owner,
-      repo: this._repo
+    let { data } = await this.octokit.request('GET /repos/{owner}/{repo}/actions/secrets/public-key', {
+      owner: jldeen,
+      repo: azurefridayaci
     })
 
     return data
