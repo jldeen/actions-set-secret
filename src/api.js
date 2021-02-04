@@ -2,9 +2,9 @@ const { Octokit } = require('@octokit/core')
 const sodium = require('tweetsodium')
 
 /**
- * @class Api
+ * @class api
  */
-module.exports = class Api {
+module.exports = class api {
   /**
    * Generate public key to store secrets
    *
