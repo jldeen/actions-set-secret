@@ -49,6 +49,7 @@ try {
   // `who-to-greet` input defined in action metadata file
   const name = core.getInput('name')
   const value = core.getInput('value')
+  const owner = core.getInput('owner')
   const repo = core.getInput('repository')
   const token = core.getInput('token')
   const org = core.getInput('org')
