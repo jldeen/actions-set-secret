@@ -82,7 +82,7 @@ module.exports = class Api {
    * @returns {Promise} - Fetch Response
    */
   async setSecret(data, name) {
-    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
+    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{name}', {
       owner: this._owner,
       repo: this._repo,
       name,
