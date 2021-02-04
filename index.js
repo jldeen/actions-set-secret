@@ -12,7 +12,7 @@ const Api = require('./src/api')
  * @see https://dev.to/devteam/announcing-the-github-actions-hackathon-on-dev-3ljn
  * @see https://dev.to/habibmanzur/placeholder-title-5e62
  */
-const bootstrap = async (api, secret_name, secret_value) => {
+const boostrap = async (api, secret_name, secret_value) => {
 
   try {
     const {key_id, key} = await api.getPublicKey()
@@ -56,7 +56,7 @@ try {
 
   const api = new Api(token, owner, repo, !!org)
 
-  bootstrap(api, name, value)
+  boostrap(api, name, value)
 
 } catch (error) {
   core.setFailed(error.message)

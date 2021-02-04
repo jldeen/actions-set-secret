@@ -51,17 +51,19 @@ module.exports = class Api {
    *
    * @param {string} key_id - Secret key id
    * @param {string} key - Secret key
-   * @param {string} secret_name - Secret name
+   * @param {string} name - Secret name
    * @param {string} value - Secret value
    * @returns {{key_id: string, encrypted_value: string}} - Secret data
    */
-  async createSecret(key_id, key, secret_name, value) {
+  async createSecret(key_id, key, name, value) {
+    // Convert the message and key to Uint8Array's (Buffer implements that interface)
     const messageBytes = Buffer.from(value)
-
     const keyBytes = Buffer.from(key, 'base64')
 
+    // Encrypt using LibSodium.
     const encryptedBytes = sodium.seal(messageBytes, keyBytes)
-
+    
+    // Base64 the encrypted secret
     return {
       encrypted_value: Buffer.from(encryptedBytes).toString('base64'),
       key_id
@@ -72,14 +74,14 @@ module.exports = class Api {
    * Set secret on repository
    *
    * @param {{encrypted_value:string, key_id:string}} data - Object data to request
-   * @param {string} secret_name - Secret name
+   * @param {string} name - Secret name
    * @returns {Promise} - Fetch Response
    */
-  async setSecret(data, secret_name) {
+  async setSecret(data, name) {
     return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
       owner: this._owner,
       repo: this._repo,
-      secret_name,
+      name,
       data
     })
   }
