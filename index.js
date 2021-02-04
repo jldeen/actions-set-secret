@@ -35,8 +35,8 @@ const boostrap = async (api, secret_name, secret_value) => {
     if (response.status >= 400) {
       core.setFailed(response.data)
     } else {
-      // core.setOutput('status', response.status)
-      core.setOutput('data', response.data)
+      core.setOutput('status', response.status)
+      // core.setOutput('data', response.data)
       console.log(`Secret created successfully!`)
     }
 
