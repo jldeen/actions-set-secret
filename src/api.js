@@ -25,8 +25,9 @@ module.exports = class Api {
    *
    * @returns {Promise<{data: object}>} - Fetch response
    */
+
   async getPublicKey() {
-    let { data } = await this.octokit.request('GET /:base/:repo/actions/secrets/public-key', {
+    let { data } = await this.octokit.request('GET /repos/{owner}/{repo}/actions/secrets/public-key', {
       base: this._base,
       repo: this._repo
     })
