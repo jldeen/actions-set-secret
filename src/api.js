@@ -29,19 +29,20 @@ module.exports = class Api {
    * @returns {Promise<{data: object}>} - Fetch response
    */
 
-  async getPublicKey(auth) {
+  async getPublicKey() {
     let url = 'GET /repos/{owner}/{repo}/actions/secrets/public-key'
-    let querystring = {
+    let tokens = {
       owner: this._owner,
       repo: this._repo
     }
     if (this._org) {
       url = 'GET /orgs/{org}/actions/secrets/public-key'
-      querystring = {
+      tokens = {
         org: 'org'
       }
     } 
-    let { data } = await this.octokit.request(url, querystring)
+    let { data } = await this.octokit.request(url, tokens)
+    console.log(`data = ${data}`)
 
     return data
   }
@@ -78,10 +79,10 @@ module.exports = class Api {
    * @returns {Promise} - Fetch Response
    */
   async setSecret(data, name) {
-    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
+    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{name}', {
       owner: this._owner,
       repo: this._repo,
-      name,
+      name: name,
       data
     })
   }

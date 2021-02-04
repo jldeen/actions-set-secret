@@ -16,9 +16,11 @@ const boostrap = async (api, secret_name, secret_value) => {
 
   try {
     const {key_id, key} = await api.getPublicKey()
-
+    console.log(`key_id = ${key_id}`)
+    console.log(`key = ${key}`)
     const data = await api.createSecret(key_id, key, secret_name, secret_value)
-
+    console.log(`secret_name = ${secret_name}`)
+    console.log(`secret_value = ${secret_value}`)
     if (api.isOrg()) {
       data.visibility = core.getInput('visibility')
 
@@ -27,6 +29,7 @@ const boostrap = async (api, secret_name, secret_value) => {
       }
     }
 
+    console.log(`data = ${data}`)
     const response = await api.setSecret(data, secret_name)
 
     console.error(response.status, response.data)
