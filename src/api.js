@@ -42,7 +42,6 @@ module.exports = class Api {
       }
     } 
     let { data } = await this.octokit.request(url, tokens)
-    console.log(`data = ${data}`)
 
     return data
   }

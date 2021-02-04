@@ -37,7 +37,7 @@ const boostrap = async (api, secret_name, secret_value) => {
     } else {
       core.setOutput('status', response.status)
       core.setOutput('data', response.data)
-      console.log(`Secret created successfully! ${response.data}`)
+      console.log(`Secret created successfully!`)
     }
 
   } catch (e) {
