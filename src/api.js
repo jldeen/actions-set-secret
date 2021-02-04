@@ -18,6 +18,7 @@ module.exports = class Api {
     this._repo = repo
     this._org = org
     this._base = org ? 'orgs' : 'repos'
+    this._owner = owner
   }
 
   /**
@@ -28,7 +29,7 @@ module.exports = class Api {
 
   async getPublicKey() {
     let { data } = await this.octokit.request('GET /repos/{owner}/{repo}/actions/secrets/public-key', {
-      base: this._base,
+      owner: this._owner,
       repo: this._repo
     })
 
@@ -65,7 +66,7 @@ module.exports = class Api {
    * @returns {Promise} - Fetch Response
    */
   async setSecret(data, name) {
-    return this.octokit.request('PUT /:base/:repo/actions/secrets/:name', {
+    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
       base: this._base,
       repo: this._repo,
       name,
