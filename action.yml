@@ -16,6 +16,11 @@ inputs:
   value:
     description: Secret value
     required: true
+  
+  owner:
+    description: Owner Name
+    default: ${{ github.repository }}
+    required: false
 
   repository:
     description: Repository name
