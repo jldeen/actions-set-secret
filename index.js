@@ -1,11 +1,11 @@
-const core = require('@actions/core');
-const api = require('./src/api')
+const core = require('@actions/core')
+const Api = require('./src/api')
 
 /**
  * Set secrets in Github repo
  * This actions is participating in #ActionsHackathon 2020
  *
- * @param {api} api - api instance
+ * @param {Api} api - Api instance
  * @param {string} secret_name - Secret key name
  * @param {string} secret_value - Secret raw value
  * @see https://developer.github.com/v3/actions/secrets/#create-or-update-an-organization-secret
@@ -53,7 +53,7 @@ try {
   const token = core.getInput('token')
   const org = core.getInput('org')
 
-  const api = new api(token, repository, !!org)
+  const api = new Api(token, repository, !!org)
 
   boostrap(api, name, value)
 
