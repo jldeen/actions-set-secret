@@ -29,15 +29,21 @@ module.exports = class Api {
    * @returns {Promise<{data: object}>} - Fetch response
    */
 
-  async getPublicKey() {
+  async getPublicKey(auth) {
     let url = 'GET /repos/{owner}/{repo}/actions/secrets/public-key'
     let querystring = {
+      headers: {
+        authorization: `token ${auth}`,
+      },
       owner: this._owner,
       repo: this._repo
     }
     if (this._org) {
       url = 'GET /orgs/{org}/actions/secrets/public-key'
       querystring = {
+        headers: {
+          authorization: `token ${auth}`,
+        },
         org: 'org'
       }
     } 
