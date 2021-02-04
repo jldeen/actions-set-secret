@@ -15,7 +15,7 @@ module.exports = class Api {
    * @param {boolean} owner - Is the repo owner
    * @returns {Promise<{data: object}>} - Fetch response
    */
-  constructor(auth, repo, org, owner = false) {
+  constructor(auth, owner, repo, org = false) {
     this.octokit = new Octokit({ auth })
     this._repo = repo
     this._org = org
@@ -30,10 +30,18 @@ module.exports = class Api {
    */
 
   async getPublicKey() {
-    let { data } = await this.octokit.request('GET /repos/jldeen/azurefridayaci/actions/secrets/public-key', {
-      // owner: jldeen,
-      // repo: azurefridayaci
-    })
+    let url = 'GET /repos/{owner}/{repo}/actions/secrets/public-key'
+    let querystring = {
+      owner: this._owner,
+      repo: this._repo
+    }
+    if (this._org) {
+      url = 'GET /orgs/{org}/actions/secrets/public-key'
+      querystring = {
+        org: 'org'
+      }
+    } 
+    let { data } = await this.octokit.request(url, querystring)
 
     return data
   }

@@ -49,11 +49,11 @@ try {
   // `who-to-greet` input defined in action metadata file
   const name = core.getInput('name')
   const value = core.getInput('value')
-  const repository = core.getInput('repository')
+  const repo = core.getInput('repository')
   const token = core.getInput('token')
   const org = core.getInput('org')
 
-  const api = new Api(token, repository, !!org)
+  const api = new Api(token, owner, repo, !!org)
 
   boostrap(api, name, value)
 
