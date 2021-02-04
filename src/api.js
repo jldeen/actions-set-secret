@@ -51,11 +51,11 @@ module.exports = class Api {
    *
    * @param {string} key_id - Secret key id
    * @param {string} key - Secret key
-   * @param {string} name - Secret name
+   * @param {string} secret_name - Secret name
    * @param {string} value - Secret value
    * @returns {{key_id: string, encrypted_value: string}} - Secret data
    */
-  async createSecret(key_id, key, name, value) {
+  async createSecret(key_id, key, secret_name, value) {
     const messageBytes = Buffer.from(value)
 
     const keyBytes = Buffer.from(key, 'base64')
@@ -72,14 +72,14 @@ module.exports = class Api {
    * Set secret on repository
    *
    * @param {{encrypted_value:string, key_id:string}} data - Object data to request
-   * @param {string} name - Secret name
+   * @param {string} secret_name - Secret name
    * @returns {Promise} - Fetch Response
    */
-  async setSecret(data, name) {
-    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{name}', {
+  async setSecret(data, secret_name) {
+    return this.octokit.request('PUT /repos/{owner}/{repo}/actions/secrets/{secret_name}', {
       owner: this._owner,
       repo: this._repo,
-      name,
+      secret_name,
       data
     })
   }
