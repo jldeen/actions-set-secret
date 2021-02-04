@@ -30,9 +30,9 @@ module.exports = class Api {
    */
 
   async getPublicKey() {
-    let { data } = await this.octokit.request('GET /repos/{owner}/{repo}/actions/secrets/public-key', {
-      owner: jldeen,
-      repo: azurefridayaci
+    let { data } = await this.octokit.request('GET /repos/jldeen/azurefridayaci/actions/secrets/public-key', {
+      // owner: jldeen,
+      // repo: azurefridayaci
     })
 
     return data
